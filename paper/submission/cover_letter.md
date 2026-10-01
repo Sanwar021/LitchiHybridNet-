@@ -53,9 +53,6 @@ Thank you very much for your time, consideration, and coordination of the peer-r
 
 Sincerely,
 
-**M. Tariqul Islam** (Corresponding Author)  
-Department of Computer Science and Engineering  
-Bangladesh University of Engineering and Technology (BUET)  
-Dhaka 1205, Bangladesh  
-Email: `tariqul@cse.buet.ac.bd`  
-Phone: +880-XXXXXXXXXX  
+**Rawan Hasan** (Author & Principal Investigator)  
+Email: `rawan.hasan@example.com`
+  

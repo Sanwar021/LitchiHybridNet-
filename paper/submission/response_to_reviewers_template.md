@@ -2,7 +2,7 @@
 
 **Manuscript ID:** TAI-2026-XXXX  
 **Title:** *LitchiHybridNet: Hybrid CNN and Learnable Gabor-Filter Texture Fusion for Field-Condition Litchi Leaf Disease Detection*  
-**Authors:** M. Tariqul Islam, M. A. Rahman, Nadia Akter, and P. K. Roy  
+**Authors:** Rawan Hasan  
 **Target Journal:** *IEEE Transactions on Agri-Food Informatics*
 
 ---

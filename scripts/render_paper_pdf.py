@@ -208,11 +208,10 @@ def render_paper_pdf():
 <div class="title-block">
   <h1 class="title">LitchiHybridNet: Hybrid CNN and Learnable Gabor-Filter Texture Fusion for Field-Condition Litchi Leaf Disease Detection</h1>
   <div class="authors">
-    M. Tariqul Islam, M. A. Rahman, Nadia Akter, and P. K. Roy
+    Rawan Hasan
   </div>
   <div class="affiliations">
-    Department of Computer Science and Engineering, Bangladesh University of Engineering and Technology (BUET), Dhaka, Bangladesh<br>
-    Plant Pathology Division, Bangladesh Agricultural Research Institute (BARI), Gazipur, Bangladesh
+    Independent AI &amp; Computer Vision Researcher (e-mail: rawan.hasan@example.com)
   </div>
 </div>
 
