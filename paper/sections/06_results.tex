@@ -13,6 +13,13 @@ The empirical findings clearly demonstrate the superiority of the proposed frame
     \item \textbf{Extreme Parameter and FLOP Efficiency:} Compared to the Vision Transformer (Swin-T, 28.29\,M parameters, 4.50\,GFLOPs), LitchiHybridNet achieves superior diagnostic accuracy while utilizing \paramReductionVsSwin{} fewer parameters (\paramCountMillion{}) and requiring only 5.3\% of the FLOPs (\gigaFlops{}\,GFLOPs).
     \item \textbf{Performance vs. Graph and Classical Baselines:} The proposed model substantially outperforms the reported LitchiChebNet benchmark (96.40\%) by +2.64\% in accuracy, while executing more than twice as fast (38.4\,ms vs. 78.0\,ms). Furthermore, classical Gabor texture filtering paired with an RBF SVM attains only 84.20\% accuracy, confirming that rigid handcrafted wavelets without non-linear deep feature representation are insufficient for natural field variations.
 \end{enumerate}
+ 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/baseline_comparison.png}
+\caption{Benchmark comparison chart across baseline architectures on the BDLitchi dataset, illustrating the accuracy and Macro-F1 advantage of LitchiHybridNet.}
+\label{fig:baseline_comparison}
+\end{figure}
 
 \begin{figure}[t]
 \centering

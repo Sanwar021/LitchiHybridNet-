@@ -25,4 +25,11 @@ The core scientific contributions of this work are summarized as follows:
     \item \textbf{Field Robustness and Quantized Edge Feasibility:} Under severity-5 optical motion blur, LitchiHybridNet retains an accuracy of \blurRetentionProposed{}, maintaining a \robustnessGain{} margin over MobileNetV3. Post-training INT8 quantization yields an ultra-compact \modelSizeQuantMB{} model executing in \cpuLatencyMS{}\,ms on x86 CPUs and \rpiLatencyMS{}\,ms on a Raspberry Pi 4 edge device (\rpiFPS{}\,FPS), proving immediate readiness for handheld field deployment.
 \end{enumerate}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/pipeline_workflow.png}
+\caption{Operational pipeline of the LitchiHybridNet diagnostic framework: (1) difference perceptual hash ($dHash$) data audit and group-aware splitting, (2) dual-branch feature extraction, (3) GAFM cross-attention gating, and (4) edge-accelerated INT8 quantization for handheld and robotic field deployment.}
+\label{fig:pipeline_workflow}
+\end{figure}
+
 The remainder of this manuscript is structured as follows. Section~\ref{sec:related} synthesizes related work in foliar pathology and spatial-frequency deep learning, identifying the fundamental research gap. Section~\ref{sec:dataset} details the BDLitchi dataset, the perceptual hash duplicate audit, and the group-aware splitting protocol. Section~\ref{sec:method} outlines the mathematical formulation of LitchiHybridNet, including the learnable Gabor layer, the GAFM cross-gating mechanism, and the optimization algorithm. Section~\ref{sec:setup} describes experimental settings, baseline configurations, and evaluation metrics. Section~\ref{sec:results} presents comprehensive empirical results, ablation studies, corruption robustness, and edge profiling. Section~\ref{sec:discussion} discusses theoretical implications, failure modes, and threats to validity. Section~\ref{sec:conclusion} concludes the paper with directions for future research.
