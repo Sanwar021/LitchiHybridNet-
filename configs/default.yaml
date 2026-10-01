@@ -1,0 +1,94 @@
+# Default configuration for LitchiHybridNet experiments
+# All hyperparameters and paths are defined here for reproducibility.
+
+project:
+  name: "LitchiHybridNet"
+  seed: 42
+  device: "auto"  # auto, cpu, cuda
+
+data:
+  raw_dir: "../Dataset/Dataset"
+  augmented_dir: "../Litchi_Augmented/Litchi_Augmented"
+  splits_dir: "data/splits"
+  img_size: 224
+  batch_size: 32
+  num_workers: 0
+  test_ratio: 0.15
+  val_ratio: 0.15
+  # Augmentation
+  augmentation:
+    horizontal_flip: true
+    vertical_flip: true
+    rotation_limit: 20
+    brightness_limit: 0.2
+    contrast_limit: 0.2
+    hue_sat_limit: 15
+    blur_limit: 3
+    coarse_dropout: true
+    normalize:
+      mean: [0.485, 0.456, 0.406]
+      std: [0.229, 0.224, 0.225]
+
+model:
+  name: "LitchiHybridNet"
+  backbone: "mobilenetv3_large_100"  # timm model name
+  pretrained: true
+  freeze_backbone_stages: 0  # 0 = no freezing, N = freeze first N stages
+  gabor:
+    learnable: true
+    num_scales: 4
+    num_orientations: 6
+    kernel_size: 11
+    init_from_frequency_analysis: true
+    # Initial ranges (overridden by Phase 1 analysis)
+    min_lambda: 3.0
+    max_lambda: 15.0
+    sigma_ratio: 0.56
+    gamma: 0.5
+  fusion:
+    type: "gated"  # gated, concat, cross_attention
+    reduction: 4
+  classifier:
+    hidden_dim: 256
+    dropout: 0.3
+    label_smoothing: 0.05
+  num_classes: 11
+
+training:
+  epochs: 25
+  optimizer:
+    name: "adamw"
+    lr: 0.001
+    weight_decay: 0.0001
+  scheduler:
+    name: "cosine"
+    warmup_epochs: 3
+    min_lr: 0.000001
+  early_stopping:
+    patience: 10
+    monitor: "val_macro_f1"
+    mode: "max"
+  gradient_clip: 1.0
+  use_class_weights: true
+  focal_loss: false
+  mixed_precision: false  # CPU only
+  
+evaluation:
+  metrics:
+    - accuracy
+    - balanced_accuracy
+    - macro_f1
+    - weighted_f1
+    - macro_precision
+    - macro_recall
+    - mcc
+    - cohen_kappa
+    - roc_auc
+  seeds: [42, 123, 456, 789, 1024]
+  
+paths:
+  checkpoints: "experiments/checkpoints"
+  results: "experiments/results"
+  logs: "experiments/logs"
+  figures: "figures"
+  tables: "tables"

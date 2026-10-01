@@ -1,0 +1,8 @@
+Metric,Original Dataset,Augmented Dataset,Delta (Aug - Orig)
+Dataset,"BDLitchi Raw (11,094 images)","BDLitchi Augmented (16,500 images)",-
+Test Accuracy,99.04%,97.94%,-1.10%
+Macro F1-Score,0.9904,0.9794,-0.0110
+Weighted F1-Score,0.9903,0.9794,-0.0109
+Macro Precision,0.9902,0.9800,-0.0102
+Macro Recall,0.9908,0.9794,-0.0114
+Test Samples,1665,2475,+810

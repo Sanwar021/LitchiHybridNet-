@@ -1,0 +1,241 @@
+{
+    "dataset_name": "BDLitchi Original",
+    "test_loss": 0.0787,
+    "test_accuracy": 0.9904,
+    "test_accuracy_percentage": 99.04,
+    "macro_precision": 0.9902,
+    "macro_recall": 0.9908,
+    "macro_f1": 0.9904,
+    "weighted_f1": 0.9903,
+    "total_test_samples": 1665,
+    "classification_report": {
+        "Black Spot": {
+            "precision": 0.9932432432432432,
+            "recall": 0.9363057324840764,
+            "f1-score": 0.9639344262295082,
+            "support": 157.0
+        },
+        "Burned Leaf": {
+            "precision": 0.9831460674157303,
+            "recall": 0.9943181818181818,
+            "f1-score": 0.9887005649717514,
+            "support": 176.0
+        },
+        "Dried Leaf": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 140.0
+        },
+        "Fungal Stripe Damage": {
+            "precision": 0.9928057553956835,
+            "recall": 1.0,
+            "f1-score": 0.9963898916967509,
+            "support": 138.0
+        },
+        "Healthy Leaf": {
+            "precision": 0.9932885906040269,
+            "recall": 1.0,
+            "f1-score": 0.9966329966329966,
+            "support": 148.0
+        },
+        "Insect Chewing Damage": {
+            "precision": 1.0,
+            "recall": 0.9942528735632183,
+            "f1-score": 0.9971181556195965,
+            "support": 174.0
+        },
+        "Leaf Blight Disease": {
+            "precision": 0.9931506849315068,
+            "recall": 1.0,
+            "f1-score": 0.9965635738831615,
+            "support": 145.0
+        },
+        "Pest-Affected Dry Leaf": {
+            "precision": 0.9849624060150376,
+            "recall": 0.9924242424242424,
+            "f1-score": 0.9886792452830189,
+            "support": 132.0
+        },
+        "Red Rust Disease": {
+            "precision": 0.9875776397515528,
+            "recall": 0.9814814814814815,
+            "f1-score": 0.9845201238390093,
+            "support": 162.0
+        },
+        "White Spot": {
+            "precision": 0.9635036496350365,
+            "recall": 1.0,
+            "f1-score": 0.9814126394052045,
+            "support": 132.0
+        },
+        "Yellow Mosaic Virus": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 161.0
+        },
+        "accuracy": 0.9903903903903903,
+        "macro avg": {
+            "precision": 0.990152548817438,
+            "recall": 0.9907984101610182,
+            "f1-score": 0.9903592379600908,
+            "support": 1665.0
+        },
+        "weighted avg": {
+            "precision": 0.9904977471525453,
+            "recall": 0.9903903903903903,
+            "f1-score": 0.9903286240483661,
+            "support": 1665.0
+        }
+    },
+    "confusion_matrix": [
+        [
+            147,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            2,
+            2,
+            4,
+            0
+        ],
+        [
+            0,
+            175,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            140,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            138,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            148,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            173,
+            0,
+            0,
+            0,
+            1,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            145,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            131,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            2,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            159,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            132,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            161
+        ]
+    ],
+    "paths": {
+        "confusion_matrix_plot": "results\\original\\confusion_matrix.png",
+        "classification_report_csv": "results\\original\\classification_report.csv"
+    }
+}

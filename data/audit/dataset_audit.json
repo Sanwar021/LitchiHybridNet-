@@ -1,0 +1,172 @@
+{
+    "dataset": "BDLitchi: Bangladeshi Litchi Leaf Disease Dataset",
+    "source": "https://data.mendeley.com/datasets/jhb24mszdk/1",
+    "total_images": 11094,
+    "num_classes": 11,
+    "classes": [
+        "Black Spot",
+        "Burned Leaf",
+        "Dried Leaf",
+        "Fungal Stripe Damage",
+        "Healthy Leaf",
+        "Insect Chewing Damage",
+        "Leaf Blight Disease",
+        "Pest-Affected Dry Leaf",
+        "Red Rust Disease",
+        "White Spot",
+        "Yellow Mosaic Virus"
+    ],
+    "class_statistics": [
+        {
+            "class": "Black Spot",
+            "count": 1045,
+            "pct": "9.4%",
+            "mean_width": 612,
+            "mean_height": 505,
+            "mean_size_kb": "334.6",
+            "train": 731,
+            "val": 157,
+            "test": 157
+        },
+        {
+            "class": "Burned Leaf",
+            "count": 1171,
+            "pct": "10.6%",
+            "mean_width": 571,
+            "mean_height": 546,
+            "mean_size_kb": "335.5",
+            "train": 766,
+            "val": 218,
+            "test": 187
+        },
+        {
+            "class": "Dried Leaf",
+            "count": 934,
+            "pct": "8.4%",
+            "mean_width": 582,
+            "mean_height": 535,
+            "mean_size_kb": "331.9",
+            "train": 654,
+            "val": 140,
+            "test": 140
+        },
+        {
+            "class": "Fungal Stripe Damage",
+            "count": 922,
+            "pct": "8.3%",
+            "mean_width": 595,
+            "mean_height": 522,
+            "mean_size_kb": "328.7",
+            "train": 684,
+            "val": 118,
+            "test": 120
+        },
+        {
+            "class": "Healthy Leaf",
+            "count": 988,
+            "pct": "8.9%",
+            "mean_width": 571,
+            "mean_height": 546,
+            "mean_size_kb": "336.2",
+            "train": 680,
+            "val": 150,
+            "test": 158
+        },
+        {
+            "class": "Insect Chewing Damage",
+            "count": 1160,
+            "pct": "10.5%",
+            "mean_width": 576,
+            "mean_height": 541,
+            "mean_size_kb": "336.7",
+            "train": 829,
+            "val": 149,
+            "test": 182
+        },
+        {
+            "class": "Leaf Blight Disease",
+            "count": 965,
+            "pct": "8.7%",
+            "mean_width": 587,
+            "mean_height": 530,
+            "mean_size_kb": "334.6",
+            "train": 651,
+            "val": 165,
+            "test": 149
+        },
+        {
+            "class": "Pest-Affected Dry Leaf",
+            "count": 879,
+            "pct": "7.9%",
+            "mean_width": 588,
+            "mean_height": 529,
+            "mean_size_kb": "333.7",
+            "train": 615,
+            "val": 132,
+            "test": 132
+        },
+        {
+            "class": "Red Rust Disease",
+            "count": 1079,
+            "pct": "9.7%",
+            "mean_width": 595,
+            "mean_height": 522,
+            "mean_size_kb": "343.1",
+            "train": 754,
+            "val": 169,
+            "test": 156
+        },
+        {
+            "class": "White Spot",
+            "count": 877,
+            "pct": "7.9%",
+            "mean_width": 593,
+            "mean_height": 524,
+            "mean_size_kb": "338.9",
+            "train": 613,
+            "val": 132,
+            "test": 132
+        },
+        {
+            "class": "Yellow Mosaic Virus",
+            "count": 1074,
+            "pct": "9.7%",
+            "mean_width": 598,
+            "mean_height": 519,
+            "mean_size_kb": "329.9",
+            "train": 752,
+            "val": 161,
+            "test": 161
+        }
+    ],
+    "corrupt_files": 0,
+    "extensions": {
+        ".jpg": 11094
+    },
+    "resolution": {
+        "width_range": [
+            480,
+            638
+        ],
+        "height_range": [
+            480,
+            638
+        ],
+        "unique_resolutions": 2
+    },
+    "duplicates": {
+        "exact_md5_groups": 0,
+        "exact_md5_images": 0,
+        "near_duplicate_groups": 924,
+        "near_duplicate_images": 3950,
+        "cross_class_duplicate_groups": 0,
+        "phash_threshold": 8
+    },
+    "splits": {
+        "train": 7729,
+        "val": 1691,
+        "test": 1674,
+        "random_state": 42,
+        "no_group_leakage": true
+    }
+}
