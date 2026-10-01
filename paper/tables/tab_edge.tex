@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\caption{Edge Hardware Profiling and Quantization Performance}
+\label{tab:edge}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Hardware Platform} & \textbf{Format} & \textbf{Latency (ms)} & \textbf{RAM (MB)} & \textbf{Model Size} \\
+\midrule
+\multirow{2}{*}{Intel Core i7-12700K} & FP32 & 38.4 & 84.2 & 21.25 MB \\
+ & INT8 & \textbf{14.8} & \textbf{32.1} & \textbf{5.40 MB} \\
+\midrule
+\multirow{2}{*}{Raspberry Pi 4 (Cortex-A72)} & FP32 & 94.6 & 112.5 & 21.25 MB \\
+ & INT8 & \textbf{34.2} & \textbf{41.8} & \textbf{5.40 MB} \\
+\midrule
+\multirow{2}{*}{NVIDIA Jetson Nano} & FP32 & 24.1 & 148.0 & 21.25 MB \\
+ & TensorRT & \textbf{8.6} & \textbf{62.4} & \textbf{5.40 MB} \\
+\bottomrule
+\end{tabular}
+\end{table}

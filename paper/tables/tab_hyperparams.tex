@@ -1,0 +1,27 @@
+\begin{table}[t]
+\centering
+\caption{Hyperparameter Specifications for Model Training and Gabor Layer}
+\label{tab:hyperparams}
+\begin{tabular}{ll}
+\toprule
+\textbf{Hyperparameter} & \textbf{Value / Specification} \\
+\midrule
+Base Architecture & MobileNetV3-Large (ImageNet-1k pre-trained) \\
+Input Image Dimensions & $224 \times 224 \times 3$ RGB \\
+Optimization Algorithm & AdamW ($\beta_1 = 0.9, \beta_2 = 0.999$) \\
+Initial Learning Rate & $1.0 \times 10^{-3}$ \\
+Learning Rate Schedule & Cosine Annealing ($\eta_{\min} = 1.0 \times 10^{-6}$) \\
+Weight Decay Penalty & $1.0 \times 10^{-2}$ \\
+Batch Size & 32 \\
+Training Duration & 50 Epochs (Early stopping patience = 10) \\
+Label Smoothing ($\epsilon$) & 0.1 \\
+Dropout Probability ($p$) & 0.3 \\
+Gabor Bank Channel Count ($K$) & 24 \\
+Gabor Spatial Kernel Size & $7 \times 7$ \\
+Initial Gabor Orientations ($\theta$) & 8 Angles: $\{0, \frac{\pi}{8}, \frac{\pi}{4}, \frac{3\pi}{8}, \frac{\pi}{2}, \frac{5\pi}{8}, \frac{3\pi}{4}, \frac{7\pi}{8}\}$ \\
+Initial Radial Frequencies ($F$) & 3 Frequencies: $\{0.05, 0.15, 0.25\}$ cycles/pixel \\
+Initial Envelope Aspect Ratio ($\gamma$) & 1.0 (Isotropic envelope) \\
+Quantization Paradigm & Post-Training Dynamic INT8 via ONNX Runtime \\
+\bottomrule
+\end{tabular}
+\end{table}

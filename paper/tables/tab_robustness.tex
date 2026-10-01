@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\caption{Top-1 Accuracy Retention (\%) under Severity-5 Field Corruptions}
+\label{tab:robustness}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Corruption Scenario} & \textbf{MobileNetV3} & \textbf{ResNet-50} & \textbf{Swin-T} & \textbf{LitchiHybridNet} \\
+\midrule
+Motion Blur & 72.8 & 76.4 & 79.2 & \textbf{85.4} (+12.6) \\
+Gaussian Sensor Noise & 79.2 & 82.5 & 84.1 & \textbf{89.4} (+10.2) \\
+Monsoon Rain Simulation & 77.5 & 81.0 & 82.8 & \textbf{88.1} (+10.6) \\
+Solar Glare / Brightness & 86.0 & 88.4 & 90.5 & \textbf{93.2} (+7.2) \\
+Atmospheric Fog / Low Contrast & 82.1 & 85.2 & 87.0 & \textbf{90.8} (+8.7) \\
+\midrule
+\textbf{Mean Corruption Retention} & \textbf{79.5} & \textbf{82.7} & \textbf{84.7} & \textbf{89.4} (+9.9) \\
+\bottomrule
+\end{tabular}
+\end{table}

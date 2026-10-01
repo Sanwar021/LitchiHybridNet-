@@ -1,0 +1,20 @@
+\begin{table*}[t]
+\centering
+\caption{Systematic Summary of Related Literature in Foliar Crop Pathology and Gabor-Deep Hybrid Models}
+\label{tab:related}
+\begin{tabular}{p{3.2cm}p{3.8cm}p{3.2cm}cc}
+\toprule
+\textbf{Study} & \textbf{Methodological Approach} & \textbf{Benchmark Dataset} & \textbf{Accuracy (\%)} & \textbf{Primary Limitation Addressed in this Work} \\
+\midrule
+Mohanty \textit{et al.} (2016) \cite{mohanty2016using} & AlexNet / GoogLeNet & PlantVillage (Lab) & 99.35 & Evaluated solely on uniform laboratory backdrops; fails in orchards \\
+Ferentinos (2018) \cite{ferentinos2018deep} & VGG / ResNet-50 & PlantVillage + Greenhouse & 99.53 & High parameter count (>98 MB); susceptible to natural solar shifts \\
+Barbedo (2019) \cite{barbedo2019plant} & Individual Lesion CNN & Multi-Crop Field Set & 84.10 & Requires manual lesion segmentation before inference; unscalable \\
+Wang \textit{et al.} (2021) \cite{wang2021gabor} & Fixed Gabor + DenseNet & Apple Leaf Benchmark & 96.80 & Handcrafted static Gabor bank cannot adapt to lesion orientation \\
+LitchiChebNet (2022) \cite{litchi_dataset_2022} & Chebyshev Graph CNN & BDLitchi Raw & 96.40 & Graph building adds 78 ms latency; vulnerable to boundary occlusions \\
+Luan \textit{et al.} (2018) \cite{luan2018gabor} & Gabor Convolutional Net & PASCAL VOC / CIFAR & 92.50 & Strict filter parameter tying without cross-attentive texture fusion \\
+Ahmed \textit{et al.} (2022) \cite{ahmed2022field} & MobileNetV2 Edge & Rice Disease Field Set & 95.20 & Standard depthwise kernels degrade by 22\% under optical motion blur \\
+\midrule
+\textbf{LitchiHybridNet (Ours)} & \textbf{Dual-Branch Learnable Gabor + MobileNetV3 + GAFM} & \textbf{BDLitchi Leakage-Free} & \textbf{99.04} & \textbf{Provides robust frequency inductive bias and real-time edge speed} \\
+\bottomrule
+\end{tabular}
+\end{table*}

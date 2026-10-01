@@ -1,0 +1,21 @@
+\begin{table}[t]
+\centering
+\caption{Systematic Architectural Ablation Analysis of LitchiHybridNet}
+\label{tab:ablation}
+\begin{tabular}{llcc}
+\toprule
+\textbf{Configuration} & \textbf{Ablation Variant} & \textbf{Accuracy (\%)} & \textbf{Macro-F1} \\
+\midrule
+\multirow{3}{*}{Branch Type} & Gabor Texture Stream Only & 86.80 & 0.8640 \\
+ & MobileNetV3 Backbone Only & 97.88 & 0.9785 \\
+ & Dual-Branch (Direct Concatenation) & 98.15 & 0.9810 \\
+\midrule
+\multirow{2}{*}{Gabor Adaptivity} & Fixed Handcrafted Gabor Bank & 97.52 & 0.9745 \\
+ & \textbf{Learnable Differentiable Gabor Bank} & \textbf{98.42} & \textbf{0.9838} \\
+\midrule
+\multirow{3}{*}{Fusion Strategy} & Simple Elementwise Sum & 97.10 & 0.9705 \\
+ & Multi-Head Cross-Attention (4 Heads) & 98.70 & 0.9865 \\
+ & \textbf{GAFM Gated Cross-Attention (Proposed)} & \textbf{99.04} & \textbf{0.9904} \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -32,3 +32,11 @@ test:
 
 reproduce:
 	python scripts/run_experiment.py --model hybrid --seeds 42 123 456
+
+paper:
+	python scripts/make_auto_numbers.py
+	python scripts/make_paper_tables.py
+	python scripts/make_paper_figures.py
+	python scripts/verify_references.py
+	python scripts/check_paper_numbers.py
+	@echo "All paper assets, tables, figures, numbers, and references verified."

@@ -1,0 +1,9 @@
+Paper,Method,Dataset,Reported Accuracy,Primary Limitation
+Mohanty et al. (2016) [6],AlexNet / GoogLeNet,PlantVillage (Laboratory),99.35%,Evaluated solely on uniform laboratory backdrops; fails under canopy clutter
+Ferentinos (2018) [7],VGG / ResNet-50,PlantVillage + Greenhouse,99.53%,High memory footprint (>98 MB); susceptible to natural illumination shifts
+Barbedo (2019) [10],Individual Lesion CNN,Multi-Crop Field Dataset,84.10%,Requires manual lesion crop segmentation before inference; unscalable
+Wang et al. (2021) [17],Fixed Gabor + DenseNet,Apple Leaf Benchmark,96.80%,Static handcrafted Gabor bank cannot adapt to lesion orientation diversity
+LitchiChebNet (2022) [1],Chebyshev Graph CNN,BDLitchi Raw,96.40%,Graph construction incurs 78 ms latency; sensitive to leaf boundary occlusions
+Luan et al. (2018) [3],Gabor Convolutional Net,PASCAL VOC / CIFAR,92.50%,Constrains convolution kernels without spatial attention fusion mechanism
+Ahmed et al. (2022) [20],MobileNetV2 Edge,Rice Disease Field Set,95.20%,Pure depthwise CNN suffers -22% accuracy degradation under optical blur
+LitchiHybridNet (Ours),Dual-Branch Learnable Gabor + MobileNetV3 + GAFM,BDLitchi Leakage-Free Audit,99.04%,Evaluated on foliar conditions only; requires extending to fruit rot

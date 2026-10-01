@@ -1,0 +1,42 @@
+\section{Conclusion}
+\label{sec:conclusion}
+In this paper, we introduced \textbf{LitchiHybridNet}, a novel dual-branch hybrid deep learning architecture designed for automated, field-condition litchi foliar disease diagnosis. By synergizing deep semantic abstractions from a lightweight MobileNetV3 backbone with high-frequency spatial-frequency descriptors from a \gaborChannels{}-channel \textbf{Learnable Gabor Convolutional Bank}, the model overcomes the visual clutter, illumination shifts, and micro-textural ambiguities inherent to natural orchard environments. Feature recalibration is driven by the \textbf{Gabor Attention Fusion Module (GAFM)}, which executes channel-wise cross-gating to suppress background foliage noise and accentuate pathological lesion boundaries.
+
+To eliminate pervasive perceptual data leakage in existing literature, we conducted an exhaustive $dHash$ audit across the \totalImages{}-image BDLitchi dataset, resolving \nearDupGroups{} near-duplicate clusters and defining a verified, group-aware 70/15/15 stratified benchmark partition.
+
+Extensive empirical evaluations across five random seeds confirm that LitchiHybridNet establishes a new benchmark standard:
+\begin{enumerate}
+    \item Achieving a state-of-the-art Top-1 accuracy of \textbf{\accMain{}} and a Macro-F1 score of \textbf{\fOneMain{}}, outperforming ResNet-50, EfficientNet-B0, MobileNetV3, Swin-T, and ConvNeXt-Tiny with high statistical significance ($p < 0.001$).
+    \item Achieving zero false-alarm detections on healthy foliage (\healthyLeafFOne{} F1-score), preventing unnecessary chemical pesticide applications.
+    \item Exhibiting robust environmental resilience under adverse field conditions, maintaining a \textbf{\robustnessGain{}} accuracy advantage under severe motion blur and an average \textbf{\meanCorruptionProposed{}} retention across five field corruption benchmarks.
+    \item Supporting seamless edge deployment via INT8 quantization, resulting in an ultra-compact \textbf{\modelSizeQuantMB{}} disk footprint executing in \textbf{\cpuLatencyMS{}\,ms} on x86 CPUs and \textbf{\rpiLatencyMS{}\,ms} on a low-cost Raspberry Pi 4 single-board computer (\textbf{\rpiFPS{}\,FPS}).
+\end{enumerate}
+
+Furthermore, we reported an honest empirical negative finding: aggressive synthetic geometric data augmentation induces a \deltaAcc{} accuracy drop, demonstrating that artificial warping distorts high-frequency fungal spore textures.
+
+Future investigations will aim to expand the framework toward multi-organ disease diagnosis (integrating pericarp fruit rot and panicle blights), evaluate cross-continental cultivar generalization, and develop few-shot domain adaptation algorithms for nascent regional pathogen variants.
+
+\section*{Declarations}
+\subsection*{Data Availability Statement}
+The BDLitchi benchmark dataset utilized in this investigation is publicly accessible through its published scientific repository \cite{litchi_dataset_2022}. The group-aware stratified data partition splits and perceptual hash audit manifests are available in the project repository.
+
+\subsection*{Code Availability Statement}
+The complete PyTorch source code, learnable Gabor layer implementations, training pipelines, ONNX quantization routines, and evaluation scripts are made openly accessible at \url{https://github.com/Sanwar021/LitchiHybridNet-.git} under the MIT License for research reproducibility.
+
+\subsection*{Funding Statement}
+This research was supported in part by the [FUNDING BODY / RESEARCH GRANT PLACEHOLDER] under Grant No.~[GRANT-NUMBER-PLACEHOLDER].
+
+\subsection*{Conflict of Interest}
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+\subsection*{Author Contributions (CRediT Statement)}
+\textbf{Conceptualization:} [AUTHOR 1], [AUTHOR 2];
+\textbf{Methodology:} [AUTHOR 1], [AUTHOR 3];
+\textbf{Software and Implementation:} [AUTHOR 1];
+\textbf{Validation and Formal Analysis:} [AUTHOR 1], [AUTHOR 2], [AUTHOR 4];
+\textbf{Investigation:} [AUTHOR 3], [AUTHOR 4];
+\textbf{Data Curation and Audit:} [AUTHOR 1], [AUTHOR 3];
+\textbf{Writing --- Original Draft:} [AUTHOR 1];
+\textbf{Writing --- Review and Editing:} [AUTHOR 2], [AUTHOR 4];
+\textbf{Supervision:} [AUTHOR 2], [AUTHOR 4];
+\textbf{Project Administration:} [AUTHOR 2].

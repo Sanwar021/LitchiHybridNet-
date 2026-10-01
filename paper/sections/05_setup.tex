@@ -1,0 +1,61 @@
+\section{Experimental Setup}
+\label{sec:setup}
+
+\subsection{Implementation Environment and Compute Infrastructure}
+All experiments, model training pipelines, and data audit procedures were implemented in Python 3.11 using the PyTorch 2.4 deep learning framework. Hardware training was conducted on high-performance compute nodes equipped with an NVIDIA RTX A6000 GPU (48\,GB GDDR6 VRAM, CUDA 12.2) and an AMD EPYC 7763 64-core processor running Ubuntu 22.04 LTS.
+
+For edge deployment profiling, models were exported to the Open Neural Network Exchange (ONNX) format and benchmarked using ONNX Runtime 1.19 across three representative computing platforms:
+\begin{enumerate}
+    \item \textbf{High-Performance Workstation CPU:} Intel Core i7-12700K (12 physical cores, 20 threads, base frequency 3.60\,GHz, 32\,GB DDR5 memory).
+    \item \textbf{Low-Cost Agricultural Edge SBC:} Raspberry Pi 4 Model B (Broadcom BCM2711 SoC, Quad-core ARM Cortex-A72 64-bit @ 1.5\,GHz, 4\,GB LPDDR4-3200 SDRAM, running Raspberry Pi OS 64-bit).
+    \item \textbf{Embedded Neural Accelerator:} NVIDIA Jetson Nano Developer Kit (128-core NVIDIA Maxwell GPU, Quad-core ARM Cortex-A57 @ 1.43\,GHz, 4\,GB 64-bit LPDDR4, running JetPack 4.6.1 / TensorRT).
+\end{enumerate}
+
+\subsection{Hyperparameter Specifications and Optimization Budget}
+To ensure rigorous and equitable benchmarking, all baseline architectures and LitchiHybridNet variants were trained under strictly identical optimization budgets and data splits. Table~\ref{tab:hyperparams} enumerates the complete hyperparameter configuration.
+
+\input{tables/tab_hyperparams.tex}
+
+All networks were optimized using the AdamW algorithm ($\beta_1 = 0.9, \beta_2 = 0.999$, weight decay $\lambda = 1.0 \times 10^{-2}$) with an initial learning rate $\eta_0 = 1.0 \times 10^{-3}$. The learning rate was modulated using a Cosine Annealing schedule decaying smoothly to $\eta_{\min} = 1.0 \times 10^{-6}$ over $E = 50$ epochs. The batch size was fixed at 32. Early stopping based on validation Macro-F1 was enforced with a patience of 10 epochs.
+
+\subsection{Comparative Baseline Architectures}
+We evaluate LitchiHybridNet against a diverse suite of 8 competitive baselines spanning classical machine learning, lightweight convolutional models, modern high-capacity backbones, vision transformers, and graph neural networks:
+\begin{enumerate}
+    \item \textbf{Classical Gabor + SVM:} A traditional hand-crafted baseline combining multi-scale Gabor filter bank texture energy features with a Radial Basis Function (RBF) Support Vector Machine ($C=10, \gamma=\text{scale}$).
+    \item \textbf{ShuffleNetV2 1.0$\times$ \cite{ma2018shufflenet}:} An ultra-lightweight architecture (2.28\,M parameters) designed around channel split and channel shuffle operations.
+    \item \textbf{MobileNetV2 \cite{sandler2018mobilenetv2}:} An inverted residual CNN with linear bottlenecks (3.50\,M parameters).
+    \item \textbf{MobileNetV3-Large \cite{howard2019searching}:} The direct backbone baseline (5.48\,M parameters) incorporating hardware-aware NAS and Squeeze-and-Excitation attention.
+    \item \textbf{ResNet-50 \cite{he2016deep}:} A canonical 50-layer residual network with bottleneck blocks (25.56\,M parameters).
+    \item \textbf{EfficientNet-B0 \cite{tan2019efficientnet}:} A compound-scaled CNN optimizing depth, width, and resolution (5.29\,M parameters).
+    \item \textbf{Swin-Transformer-Tiny (Swin-T) \cite{liu2021swin}:} A hierarchical Vision Transformer utilizing shifted local windows (28.29\,M parameters).
+    \item \textbf{ConvNeXt-Tiny \cite{liu2022convnet}:} A modernized pure convolutional network designed to match transformer scaling (28.60\,M parameters).
+    \item \textbf{LitchiChebNet \cite{litchi_dataset_2022}:} The reported spectral graph convolutional benchmark utilizing Chebyshev polynomials over segmented superpixel boundaries.
+\end{enumerate}
+
+\subsection{Performance Metrics and Statistical Protocol}
+Evaluation relies on standard diagnostic metrics computed over the held-out test split of \testEvaluatedSamples{} images:
+\begin{itemize}
+    \item \textbf{Top-1 Classification Accuracy:} Proportion of correctly predicted samples across all categories.
+    \item \textbf{Macro-Averaged Precision, Recall, and F1-Score:} Arithmetic means of per-class metrics, ensuring that minority and majority classes are weighted equally:
+    \begin{equation}
+        \text{Macro-F1} = \frac{1}{C} \sum_{c=1}^C \frac{2 \cdot P_c \cdot R_c}{P_c + R_c}
+    \end{equation}
+    \item \textbf{Weighted-Averaged F1-Score:} Per-class F1-scores weighted by class sample support.
+    \item \textbf{Matthews Correlation Coefficient (MCC):} A balanced measure robust to class size disparities:
+    \begin{equation}
+        \text{MCC} = \frac{c \cdot s - \sum_k p_k t_k}{\sqrt{\left( s^2 - \sum_k p_k^2 \right) \left( s^2 - \sum_k t_k^2 \right)}}
+    \end{equation}
+    where $c$ is the total correct predictions, $s$ is the total samples, and $p_k, t_k$ denote predicted and true marginal totals.
+\end{itemize}
+
+To assess statistical significance, all experiments were replicated across 5 independent random seeds $\{42, 123, 456, 789, 999\}$. We report mean values accompanied by standard deviations ($\pm \sigma$). Pairwise model differences are subjected to McNemar's test for classification discordance on the 1,665 test samples, and the non-parametric Wilcoxon signed-rank test across cross-validation runs.
+
+\subsection{Environmental Corruption Robustness Protocol}
+To evaluate diagnostic reliability under adverse orchard conditions, we simulate five distinct field corruptions adapted from the Hendrycks robustness protocol \cite{hendrycks2019benchmarking} across five severity levels ($s \in \{1, 2, 3, 4, 5\}$):
+\begin{enumerate}
+    \item \textbf{Optical Motion Blur:} Simulates camera shake and foliage flutter via linear motion kernels of length $L \in \{5, 9, 15, 21, 27\}$ pixels.
+    \item \textbf{Gaussian Sensor Noise:} Simulates low-light sensor noise with variance $\sigma_n^2 \in \{0.02, 0.05, 0.08, 0.12, 0.18\}$.
+    \item \textbf{Monsoon Rain Simulation:} Synthetic rain streaks and lens droplet splatters generated by semi-transparent linear blurs and refractive circular discs.
+    \item \textbf{Solar Glare / Overexposure:} Non-linear illumination flares and localized intensity saturation ($I_{\text{new}} = I^\gamma$, $\gamma \in [0.85, 0.45]$).
+    \item \textbf{Atmospheric Fog / Contrast Loss:} Haze and scattering simulated via the Koschmieder optical transmission model with scattering coefficients $\beta \in [0.5, 2.5]$.
+\end{enumerate}

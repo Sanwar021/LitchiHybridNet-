@@ -1,0 +1,25 @@
+\begin{table}[t]
+\centering
+\caption{Mathematical Notation and Parameter Definitions}
+\label{tab:notation}
+\begin{tabular}{cl}
+\toprule
+\textbf{Symbol} & \textbf{Definition and Tensor Dimensions} \\
+\midrule
+$\mathbf{X}$ & Input orchard RGB leaf image, $\mathbf{X} \in \mathbb{R}^{3 \times H \times W}$ \\
+$G(x,y;\mathbf{\Theta})$ & 2D spatial Gabor kernel with parameter set $\mathbf{\Theta}$ \\
+$\theta$ & Spatial orientation angle of the sinusoidal carrier, $\theta \in [0, \pi)$ \\
+$F$ & Radial spatial frequency of carrier wave, cycles per pixel \\
+$\sigma$ & Standard deviation (spread) of the Gaussian envelope \\
+$\gamma$ & Spatial aspect ratio determining envelope ellipticity \\
+$\psi$ & Phase offset of sinusoidal carrier, $\psi \in [-\pi, \pi]$ \\
+$\mathbf{F}_{\text{gabor}}$ & High-frequency Gabor texture feature tensor, $\mathbb{R}^{64 \times 112 \times 112}$ \\
+$\mathbf{F}_{\text{cnn}}$ & Deep semantic feature tensor from CNN backbone, $\mathbb{R}^{960 \times 7 \times 7}$ \\
+$\mathbf{z}_{\text{cnn}}, \mathbf{z}_{\text{gabor}}$ & Global average pooled descriptors, $\mathbb{R}^{960}$ and $\mathbb{R}^{64}$ \\
+$\mathbf{s}$ & Channel attention modulation vector from GAFM, $\mathbf{s} \in (0, 1)^{1024}$ \\
+$\mathbf{F}_{\text{fused}}$ & Joint calibrated feature representation, $\mathbb{R}^{1024}$ \\
+$\hat{\mathbf{y}}$ & Predicted class probability distribution vector, $\hat{\mathbf{y}} \in \Delta^{11}$ \\
+$\mathcal{L}_{\text{total}}$ & Cross-entropy training loss with uniform label smoothing \\
+\bottomrule
+\end{tabular}
+\end{table}

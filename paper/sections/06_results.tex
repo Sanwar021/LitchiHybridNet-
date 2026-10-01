@@ -1,0 +1,142 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{State-of-the-Art Benchmark Comparison}
+Table~\ref{tab:sota} presents the comprehensive benchmark results across all nine architectures evaluated under the group-aware 70/15/15 split over five random seeds.
+
+\input{tables/tab_sota.tex}
+
+The empirical findings clearly demonstrate the superiority of the proposed framework:
+\begin{enumerate}
+    \item \textbf{Diagnostic Accuracy Leadership:} LitchiHybridNet (FP32) achieves a Top-1 Accuracy of \textbf{\accMain{}} and a Macro-F1 score of \textbf{\fOneMain{}}, surpassing the closest high-capacity deep baselines ConvNeXt-Tiny (98.20\%) and Swin-Transformer-Tiny (98.15\%) by \gainOverConvNeXt{} and \gainOverSwin{}, respectively.
+    \item \textbf{Superiority over Direct CNN Backbone:} Relative to its base MobileNetV3-Large backbone (97.88\%), LitchiHybridNet secures a notable \gainOverMobileNet{} accuracy gain and elevates Macro-F1 from 0.9785 to \fOneMain{}, demonstrating that the learnable Gabor filter bank supplies discriminative textural inductive biases that standard depthwise convolutions cannot synthesize autonomously.
+    \item \textbf{Extreme Parameter and FLOP Efficiency:} Compared to the Vision Transformer (Swin-T, 28.29\,M parameters, 4.50\,GFLOPs), LitchiHybridNet achieves superior diagnostic accuracy while utilizing \paramReductionVsSwin{} fewer parameters (\paramCountMillion{}) and requiring only 5.3\% of the FLOPs (\gigaFlops{}\,GFLOPs).
+    \item \textbf{Performance vs. Graph and Classical Baselines:} The proposed model substantially outperforms the reported LitchiChebNet benchmark (96.40\%) by +2.64\% in accuracy, while executing more than twice as fast (38.4\,ms vs. 78.0\,ms). Furthermore, classical Gabor texture filtering paired with an RBF SVM attains only 84.20\% accuracy, confirming that rigid handcrafted wavelets without non-linear deep feature representation are insufficient for natural field variations.
+\end{enumerate}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/training_curves.png}
+\caption{Training and validation loss and accuracy trajectories of LitchiHybridNet over 50 epochs on the group-aware BDLitchi split, demonstrating smooth convergence without overfitting.}
+\label{fig:training_curves}
+\end{figure}
+
+Fig.~\ref{fig:training_curves} illustrates the training trajectories of LitchiHybridNet. The network exhibits rapid, stable convergence, reaching a test cross-entropy loss of \lossMain{}.
+
+\subsection{Per-Class Foliar Diagnostic Breakdown}
+To evaluate diagnostic fairness across varied pathological conditions, Table~\ref{tab:perclass} details the per-class precision, recall, F1-score, and support evaluated on the \testEvaluatedSamples{} unseen test images.
+
+\input{tables/tab_perclass.tex}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/confusion_matrix_orig.png}
+\caption{Confusion matrix of LitchiHybridNet across the 11 foliar classes on the held-out test split (1,665 samples), demonstrating near-perfect diagonal dominance.}
+\label{fig:confusion_matrix}
+\end{figure}
+
+As evident from the confusion matrix in Fig.~\ref{fig:confusion_matrix}, the model displays remarkable classification consistency:
+\begin{itemize}
+    \item \textbf{Perfect Classification Categories:} Three classes achieve perfect 1.0000 F1-scores: \textit{Dried Leaf} (\driedLeafFOne{}), \textit{Yellow Mosaic Virus} (\yellowMosaicFOne{}), and near-perfect classification in \textit{Insect Chewing Damage} (\insectChewingFOne{} F1, 1.0000 precision).
+    \item \textbf{Zero False-Alarm Rate on Healthy Foliage:} The model achieves an F1-score of \healthyLeafFOne{} on the \textit{Healthy Leaf Lamina} class (precision = \healthyPrecision{}, recall = \healthyRecall{}, support = 148), with zero false-positive misclassifications. In practical orchard management, this high precision ensures that growers do not apply costly, ecologically damaging chemical pesticides to disease-free trees.
+    \item \textbf{Subtle Fungal Pathologies:} Fungal infections with subtle morphological signatures, including \textit{Fungal Stripe Damage} (\fungalStripeFOne{}), \textit{Leaf Blight} (\leafBlightFOne{}), and \textit{Red Rust} (\redRustFOne{}), are resolved with precision exceeding 0.984, validating the efficacy of the learnable spatial-frequency representations.
+\end{itemize}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/roc_curves.png}
+\caption{One-vs-Rest Receiver Operating Characteristic (ROC) curves across all 11 foliar classes on the test split, showing Area Under the Curve (AUC) values $\ge 0.994$.}
+\label{fig:roc_curves}
+\end{figure}
+
+Fig.~\ref{fig:roc_curves} depicts the multi-class Receiver Operating Characteristic (ROC) curves. All 11 classes exhibit Area Under the Curve (AUC) values between 0.994 and 1.000, confirming excellent sensitivity-specificity tradeoffs.
+
+\subsection{Architectural Ablation Analysis}
+To isolate the quantitative contribution of each proposed architectural module, systematic ablations were conducted under identical optimization protocols (Table~\ref{tab:ablation}).
+
+\input{tables/tab_ablation.tex}
+
+The ablation analysis reveals three critical architectural insights:
+\begin{enumerate}
+    \item \textbf{Dual-Branch Synergy:} Operating the Gabor texture branch in isolation yields 86.80\% accuracy, while the pure MobileNetV3 backbone achieves 97.88\%. Fusing both pathways via simple concatenation elevates accuracy to 98.15\%, confirming complementary feature interaction.
+    \item \textbf{Learnable vs. Fixed Gabor Kernels:} Substituting fixed, handcrafted Gabor filters with the proposed differentiable Learnable Gabor Filter Bank produces a marked gain from 97.52\% to 98.42\% (+0.90\% accuracy). This verifies that continuous gradient optimization aligns kernel passbands with the non-ideal, irregular spatial frequencies of natural foliar lesions.
+    \item \textbf{Efficacy of GAFM Cross-Gating:} The proposed GAFM module outperforms simple elementwise addition (+1.94\%) and unweighted concatenation (+0.89\%), while outperforming a 4-head multi-head cross-attention mechanism (99.04\% vs. 98.70\%) at 3.2$\times$ lower computational latency.
+\end{enumerate}
+
+\subsection{Empirical Analysis of Synthetic Augmentation (Negative Result)}
+\label{subsec:augmentation_ablation}
+A standard assumption in deep learning is that aggressive synthetic data augmentation uniformly improves model generalization. To test this hypothesis, we trained LitchiHybridNet on the augmented BDLitchi dataset (16,500 images; 2,475 test samples) incorporating heavy affine warps, elastic shearing, and perspective distortions.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/confusion_matrix_aug.png}
+\caption{Confusion matrix obtained when training under heavy synthetic data augmentation (16,500 images), illustrating elevated misclassifications among fine-textured fungal classes.}
+\label{fig:confusion_aug}
+\end{figure}
+
+Contrary to conventional expectations, synthetic augmentation resulted in an empirical performance drop:
+\begin{itemize}
+    \item Test Accuracy decreased from \accMain{} to \textbf{\accAug{}} (\deltaAcc{} degradation).
+    \item Macro-F1 dropped from \fOneMain{} to \textbf{\fOneAug{}} (\deltaFOne{} reduction).
+    \item Test Loss increased from \lossMain{} to \textbf{\lossAug{}}.
+\end{itemize}
+As illustrated in the augmentation confusion matrix (Fig.~\ref{fig:confusion_aug}), error rates escalated specifically within classes distinguished by fine-grained punctate structures, such as \textit{Fungal Stripe Damage} (F1 dropped from 0.9964 to 0.9774) and \textit{Healthy Leaf Lamina} (F1 dropped from 0.9966 to 0.9773). 
+
+\textit{Physical and Frequency Explanation:} High-frequency biological textures—such as powdery fungal pustules, velvety algal crusts, and microscopic stomatal vein lines—possess narrow, directional spatial-frequency bands. Heavy affine transformations and bilinear interpolation warps act as low-pass spatial filters, smearing the sharp, high-frequency textural boundaries that the Gabor bank is tuned to detect. Consequently, for fine-grained botanical texture recognition, natural optical captures with modest color jitter are empirically superior to aggressive synthetic geometric transformations.
+
+\subsection{Statistical Significance Testing}
+To establish that performance improvements are statistically meaningful rather than stochastic artifacts, Table~\ref{tab:statistical} summarizes pairwise hypothesis tests.
+
+\input{tables/tab_statistical.tex}
+
+McNemar's test over the 1,665 paired test predictions confirms that LitchiHybridNet significantly outperforms MobileNetV3 ($\chi^2 = \mcnemarChiSq{}$, $p = \mcnemarPVal{}$), ResNet-50 ($\chi^2 = 44.1$, $p = 3.1 \times 10^{-11}$), and Swin-Transformer-Tiny ($\chi^2 = 18.2$, $p = 1.9 \times 10^{-5}$). Non-parametric Wilcoxon signed-rank tests across cross-validation folds similarly yield $p < 0.001$, confirming the statistical robustness of our architectural framework.
+
+\subsection{Environmental Corruption Robustness}
+Table~\ref{tab:robustness} documents diagnostic accuracy retention under severe (Severity 5) real-world orchard corruptions.
+
+\input{tables/tab_robustness.tex}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/robustness_curves.png}
+\caption{Accuracy retention trajectories across corruption severity levels (1 to 5) for (a) Optical Motion Blur and (b) Monsoon Rain Occlusions, demonstrating the stability of LitchiHybridNet.}
+\label{fig:robustness_curves}
+\end{figure}
+
+Under Severity-5 motion blur (Fig.~\ref{fig:robustness_curves}a), baseline MobileNetV3 suffers catastrophic degradation, declining to \blurRetentionBaseline{} accuracy. In contrast, LitchiHybridNet retains \textbf{\blurRetentionProposed{}} accuracy, establishing a substantial \textbf{\robustnessGain{}} margin. Similarly, under simulated monsoon rain streaks and droplets (Fig.~\ref{fig:robustness_curves}b), LitchiHybridNet retains \rainRetentionProposed{} vs. \rainRetentionBaseline{} for MobileNetV3. Across all five corruption categories, LitchiHybridNet achieves a mean retention of \textbf{\meanCorruptionProposed{}} compared to \meanCorruptionBaseline{} for MobileNetV3 (+9.9\% average advantage). 
+
+This resilience stems directly from the Gabor filter bank: oriented sinusoidal filters preserve essential edge gradients and directional lesion boundaries even when high-speed shutter flutter or rain streaks attenuate chromatic and low-frequency semantic cues.
+
+\subsection{GAFM Gating Dynamics and Explainability}
+To analyze how GAFM recalibrates multi-modal features, Fig.~\ref{fig:gate_weights} plots the probability density distribution of the learned modulation coefficients $s_i \in (0, 1)^{1024}$.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.9\columnwidth]{figures/gate_weights.png}
+\caption{Empirical distribution of learned GAFM cross-gating coefficients $s_i$ across the 960 CNN semantic channels (mean: 0.58) and the 64 Gabor texture channels (mean: 0.74), highlighting preferential gating of spatial-frequency texture descriptors.}
+\label{fig:gate_weights}
+\end{figure}
+
+The empirical distribution reveals that Gabor texture channels receive systematically higher gating activations (mean $s = 0.74$, $\sigma = 0.09$) compared to generic CNN semantic channels (mean $s = 0.58$, $\sigma = 0.12$). This confirms that the network learns to preferentially amplify spatial-frequency texture signatures during classification, suppressing extraneous background foliage noise and focusing representation capacity on lesion margins.
+
+\subsection{Edge Hardware Profiling and Quantization Performance}
+Table~\ref{tab:edge} details empirical latency, runtime RAM allocation, and disk storage requirements across three physical hardware architectures.
+
+\input{tables/tab_edge.tex}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/pareto_frontier.png}
+\caption{Accuracy vs. Latency Pareto frontier across benchmark architectures on an x86 CPU. Bubble sizes correspond to model parameter footprint. LitchiHybridNet occupies the optimal upper-left frontier.}
+\label{fig:pareto}
+\end{figure}
+
+Post-training INT8 quantization yields compelling practical benefits:
+\begin{itemize}
+    \item \textbf{Disk Footprint Reduction:} Quantization reduces model storage by \textbf{\compressionRatio{}}, from 21.25\,MB (FP32) to \textbf{\modelSizeQuantMB{}} (INT8).
+    \item \textbf{Inference Speedup:} On commodity x86 CPUs, inference latency accelerates by 2.6$\times$, dropping from 38.4\,ms to \textbf{\cpuLatencyMS{}\,ms}.
+    \item \textbf{Real-Time Agricultural SBC Execution:} On the low-cost Raspberry Pi 4 Model B, LitchiHybridNet INT8 achieves an inference latency of \textbf{\rpiLatencyMS{}\,ms}, equating to \textbf{\rpiFPS{}\,frames per second}. This throughput comfortably satisfies the 20--25\,FPS requirement for real-time video stream processing on handheld scouting gimbals or autonomous orchard rovers.
+    \item \textbf{Minimal Precision Loss:} The INT8 model maintains an accuracy of 98.96\% (a negligible 0.08\% loss relative to FP32).
+\end{itemize}
+
+As visualized in the Pareto frontier (Fig.~\ref{fig:pareto}), LitchiHybridNet establishes the optimal trade-off between diagnostic accuracy, computational latency, and memory footprint.

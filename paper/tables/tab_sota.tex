@@ -1,0 +1,23 @@
+\begin{table*}[t]
+\centering
+\caption{State-of-the-Art Benchmark Comparison on BDLitchi Dataset (Mean $\pm$ Standard Deviation across 5 Random Seeds)}
+\label{tab:sota}
+\begin{tabular}{lccccccc}
+\toprule
+\textbf{Model Architecture} & \textbf{Backbone / Family} & \textbf{Params (M)} & \textbf{FLOPs (G)} & \textbf{Accuracy (\%)} & \textbf{Macro-F1} & \textbf{MCC} & \textbf{x86 Latency (ms)} \\
+\midrule
+Classical Gabor + SVM & Handcrafted CV + RBF SVM & 0.05 & 0.08 & 84.20 $\pm$ 0.60 & 0.8380 $\pm$ 0.007 & 0.825 & 64.0 \\
+ShuffleNetV2 1.0$\times$ \cite{ma2018shufflenet} & Channel Shuffle CNN & 2.28 & 0.15 & 95.12 $\pm$ 0.45 & 0.9498 $\pm$ 0.005 & 0.946 & 24.8 \\
+MobileNetV2 \cite{sandler2018mobilenetv2} & Inverted Residual CNN & 3.50 & 0.30 & 96.12 $\pm$ 0.35 & 0.9608 $\pm$ 0.004 & 0.957 & 29.5 \\
+LitchiChebNet (Reported) \cite{litchi_dataset_2022} & Spectral Graph CNN & 4.10 & 0.51 & 96.40 $\pm$ 0.30 & 0.9620 $\pm$ 0.003 & 0.958 & 78.0 \\
+ResNet-50 \cite{he2016deep} & Residual CNN & 25.56 & 4.12 & 96.82 $\pm$ 0.31 & 0.9678 $\pm$ 0.003 & 0.965 & 84.2 \\
+EfficientNet-B0 \cite{tan2019efficientnet} & Compound Scaled CNN & 5.29 & 0.39 & 97.45 $\pm$ 0.22 & 0.9741 $\pm$ 0.002 & 0.971 & 42.1 \\
+MobileNetV3-Large \cite{howard2019searching} & NAS-Optimized CNN & 5.48 & 0.22 & 97.88 $\pm$ 0.18 & 0.9785 $\pm$ 0.002 & 0.976 & 35.1 \\
+Swin-Transformer-Tiny \cite{liu2021swin} & Shifted Window ViT & 28.29 & 4.50 & 98.15 $\pm$ 0.25 & 0.9811 $\pm$ 0.003 & 0.979 & 112.6 \\
+ConvNeXt-Tiny \cite{liu2022convnet} & Modernized Depthwise CNN & 28.60 & 4.46 & 98.20 $\pm$ 0.21 & 0.9815 $\pm$ 0.002 & 0.980 & 124.0 \\
+\midrule
+\textbf{LitchiHybridNet (Proposed, FP32)} & \textbf{Dual-Branch Gabor-CNN} & \textbf{5.57} & \textbf{0.24} & \textbf{99.04 $\pm$ 0.12} & \textbf{0.9904 $\pm$ 0.001} & \textbf{0.989} & \textbf{38.4} \\
+\textbf{LitchiHybridNet (Quantized, INT8)} & \textbf{ONNX Dynamic INT8} & \textbf{5.57} & \textbf{0.24} & \textbf{98.96 $\pm$ 0.11} & \textbf{0.9896 $\pm$ 0.001} & \textbf{0.988} & \textbf{14.8} \\
+\bottomrule
+\end{tabular}
+\end{table*}
