@@ -24,12 +24,13 @@ In this manuscript, we present **LitchiHybridNet**, a lightweight, dual-branch d
 3. **State-of-the-Art Accuracy:** Across 5 random seeds, LitchiHybridNet attains **99.04% Top-1 accuracy** and **0.9904 Macro-F1**, statistically outperforming ResNet-50, EfficientNet-B0, MobileNetV3, Swin-Transformer, and ConvNeXt-Tiny ($p < 0.001$).
 4. **Adverse Field Robustness:** Under severity-5 optical motion blur, LitchiHybridNet retains 85.4% accuracy, maintaining a **+12.6% advantage** over standard CNNs.
 5. **Real-Time Agricultural Edge Deployment:** Post-training INT8 quantization yields an ultra-compact **5.40 MB** model executing in **14.8 ms** on commodity x86 CPUs and **34.2 ms (~29 FPS)** on a low-cost Raspberry Pi 4 Model B, confirming direct feasibility for handheld field scouting and autonomous robotic spraying.
+6. **Production-Ready Decision-Support Dashboard:** We deliver an open-source, interactive web platform (React 18, TypeScript, TailwindCSS) and asynchronous REST API backend (FastAPI), providing real-time multi-class foliar inference, spatial-frequency Gabor filter visualization, Grad-CAM attention heatmaps, corruption simulation sandboxes, and agronomic phytosanitary treatment recommendations for field extension officers.
 
 ### Declarations
 - This manuscript represents original work that has not been published previously and is not under consideration for publication elsewhere.
 - All authors have reviewed and approved the submitted version of the manuscript and agree with its submission.
 - The authors declare no competing financial or non-financial conflicts of interest.
-- All experimental source code, pre-trained models, and dataset audit manifests are made publicly available under the MIT License at https://github.com/Sanwar021/LitchiHybridNet-.git.
+- All experimental source code, pre-trained models, interactive dashboard applications, and dataset audit manifests are made publicly available under the MIT License at https://github.com/Sanwar021/LitchiHybridNet-.git.
 
 ### Suggested Reviewers
 We propose the following independent domain experts who possess appropriate technical expertise in agricultural computer vision, Gabor filtering, and edge deep learning:

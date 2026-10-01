@@ -3,3 +3,4 @@ Achieves 99.04% accuracy and 0.9904 Macro-F1 across 11 field-condition classes.
 Perceptual hash audit of 11,094 images eliminates burst-shot data leakage.
 Retains +12.6% accuracy advantage under severe real-world optical motion blur.
 Quantized INT8 model runs in 34.2 ms on Raspberry Pi 4 edge hardware (29 FPS).
+Full-stack React and FastAPI platform delivers live edge inference and treatment.

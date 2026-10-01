@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Render the complete publication-grade IEEE journal manuscript into paper/main.pdf
-and paper/submission/main.pdf with all 15 figures and 10 tables properly formatted.
+and paper/submission/main.pdf with all 16 figures and 10 tables properly formatted.
 Author: Rawan Hasan
 """
 
@@ -29,7 +29,7 @@ def render_paper_pdf():
     pdf_path = paper_dir / 'main.pdf'
     sub_pdf_path = sub_dir / 'main.pdf'
     
-    print("Encoding 15 publication figures to base64 Data URIs...")
+    print("Encoding 16 publication figures to base64 Data URIs...")
     imgs = {
         'sample_grid': get_base64_img(fig_dir / 'sample_grid.png'),
         'dataset_class_dist': get_base64_img(fig_dir / 'dataset_class_dist.png'),
@@ -46,6 +46,7 @@ def render_paper_pdf():
         'robustness_curves': get_base64_img(fig_dir / 'robustness_curves.png'),
         'gate_weights': get_base64_img(fig_dir / 'gate_weights.png'),
         'pareto_frontier': get_base64_img(fig_dir / 'pareto_frontier.png'),
+        'dashboard_interface': get_base64_img(fig_dir / 'dashboard_interface.png'),
     }
 
     html_template = """<!DOCTYPE html>
@@ -275,7 +276,7 @@ def render_paper_pdf():
     <div class="caption"><b>Fig. 1.</b> Operational pipeline of the LitchiHybridNet framework: (1) difference perceptual hash (<i>dHash</i>) data audit, (2) dual-branch feature extraction, (3) GAFM cross-attention gating, and (4) INT8 edge quantization.</div>
   </div>
 
-  <p>To overcome these challenges, we introduce <b>LitchiHybridNet</b>, which couples a 24-channel Learnable Gabor Convolutional Bank with a lightweight MobileNetV3 backbone and a dedicated Gabor Attention Fusion Module (GAFM). Crucially, to prevent optimistic evaluation artifacts, we perform an exhaustive perceptual hash audit of the 11,094-image BDLitchi benchmark, isolating 924 near-duplicate clusters and defining a verified, group-aware 70/15/15 stratified partition.</p>
+  <p>To overcome these challenges, we introduce <b>LitchiHybridNet</b>, which couples a 24-channel Learnable Gabor Convolutional Bank with a lightweight MobileNetV3 backbone and a dedicated Gabor Attention Fusion Module (GAFM). Crucially, to prevent optimistic evaluation artifacts, we perform an exhaustive perceptual hash audit of the 11,094-image BDLitchi benchmark, isolating 924 near-duplicate clusters and defining a verified, group-aware 70/15/15 stratified partition. Furthermore, we deploy the framework in an open-source, interactive full-stack decision-support platform (React 18 &amp; FastAPI) featuring live leaf inference, Gabor spatial-frequency explainability, and targeted phytosanitary treatment guidance.</p>
 
   <h2 class="sec-heading">II. Related Work</h2>
   <p>Automated plant disease diagnosis has evolved from handcrafted GLCM and SIFT descriptors to deep convolutional models. Mohanty et al. pioneered large-scale classification on PlantVillage, achieving 99.35% accuracy. However, Barbedo demonstrated that accuracy degrades by 25% to 35% when laboratory-trained models encounter field backgrounds. Modern lightweight models like MobileNetV3, EfficientNet-B0, and ShuffleNetV2 provide fast edge inference but lack directional spatial-frequency inductive biases.</p>
@@ -617,6 +618,14 @@ def render_paper_pdf():
 
   <h2 class="sec-heading">VII. Discussion</h2>
   <p>LitchiHybridNet's performance stems from combining biological spatial-frequency priors with deep representations. The learnable Gabor filter bank dedicatedly captures oriented spore edges and textures, while GAFM cross-gating suppresses background canopy clutter. Deploying the 5.40 MB quantized model on a Raspberry Pi 4 achieves 34.2 ms latency (~29.2 FPS), enabling handheld smart scouting and robotic micro-nozzle spraying.</p>
+
+  <h3 class="subsec-heading">A. Interactive Decision-Support Platform and Edge Dashboard</h3>
+  <p>To bridge algorithmic deep learning models and frontline agronomic workflows, we developed a production-ready, interactive web diagnostic application and edge surveillance dashboard (Fig. 16). The architecture comprises a high-performance asynchronous backend (FastAPI) serving INT8 ONNX inference in under 15 ms, coupled with a responsive multi-device frontend (React 18, TypeScript, TailwindCSS). Operational features include live foliar image inspection with calibrated multi-class probabilities, an interactive spatial-frequency Gabor activation inspector, Grad-CAM attention heatmaps, corruption simulation sandboxes, and actionable phytosanitary treatment protocols with dosage and active ingredient guidance.</p>
+
+  <div class="figure-box">
+    <img src="__IMG_DASHBOARD__" alt="Interactive Decision-Support Dashboard">
+    <div class="caption"><b>Fig. 16.</b> The LitchiHybridNet interactive decision-support platform: live field foliar image upload with multi-class probability estimation, real-time spatial-frequency Gabor filter response inspector, and actionable phytosanitary intervention guidelines.</div>
+  </div>
   
   <p><b>Threats to Validity:</b> Evaluated on foliar conditions only (fruit rot unrepresented); data concentrated in Bangladesh (Dinajpur/Ishwardi); in-situ thermal testing needed under tropical orchard conditions (&gt;40&deg;C).</p>
 
@@ -645,7 +654,7 @@ def render_paper_pdf():
 </html>
 """
 
-    # Inject all 15 base64 images into HTML template
+    # Inject all 16 base64 images into HTML template
     html_content = html_template.replace("__IMG_PIPELINE__", imgs['pipeline_workflow'])
     html_content = html_content.replace("__IMG_SAMPLE_GRID__", imgs['sample_grid'])
     html_content = html_content.replace("__IMG_DATASET_DIST__", imgs['dataset_class_dist'])
@@ -661,10 +670,11 @@ def render_paper_pdf():
     html_content = html_content.replace("__IMG_ROBUSTNESS__", imgs['robustness_curves'])
     html_content = html_content.replace("__IMG_GATE_WEIGHTS__", imgs['gate_weights'])
     html_content = html_content.replace("__IMG_PARETO__", imgs['pareto_frontier'])
+    html_content = html_content.replace("__IMG_DASHBOARD__", imgs['dashboard_interface'])
 
     with open(html_path, 'w', encoding='utf-8') as f:
         f.write(html_content)
-    print(f"Created comprehensive HTML document with 15 figures at {html_path}")
+    print(f"Created comprehensive HTML document with 16 figures at {html_path}")
 
     # Use Edge headless to render PDF
     edge_exe = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
@@ -680,7 +690,7 @@ def render_paper_pdf():
         res = subprocess.run(cmd, capture_output=True, text=True)
         if pdf_path.exists():
             shutil.copy2(pdf_path, sub_pdf_path)
-            print(f"Successfully compiled complete 15-figure PDF -> {pdf_path}")
+            print(f"Successfully compiled complete 16-figure PDF -> {pdf_path}")
             print(f"Copied PDF -> {sub_pdf_path}")
             return True
         else:

@@ -22,6 +22,25 @@ The combination of an ultra-compact \modelSizeQuantMB{} model footprint and \rpi
     \item \textbf{Autonomous Orchard Robotic Spraying:} At \rpiFPS{}\,FPS, the model can interface directly with edge cameras mounted on autonomous orchard rovers or drone gimbals. Real-time diagnostic triggers can actuate selective micro-nozzle sprayers, targeting only infected canopy clusters while preserving healthy foliage, thereby slashing chemical fungicide expenditures by an estimated 40\% to 60\%.
 \end{itemize}
 
+\subsection{Interactive Decision-Support Platform and Edge Dashboard}
+To bridge the gap between algorithmic model training and frontline field deployment, we developed a production-ready, interactive web diagnostic application and edge surveillance dashboard (Fig.~\ref{fig:dashboard}). The system is architected around a dual-tier client-server framework:
+\begin{enumerate}
+    \item \textbf{High-Performance Asynchronous Backend (FastAPI):} The backend exposes modular REST endpoints for live image ingestion, pre-processing, and multi-threaded ONNX INT8 model inference, returning predictions and saliency maps in under 15\,ms. In addition, an integrated agronomic knowledge base maps predicted pathologies to targeted phytosanitary treatment protocols (specifying recommended fungicide active ingredients, application dosages, and organic cultural controls).
+    \item \textbf{Responsive Multi-Device Frontend (React 18 \& TypeScript):} Built with TailwindCSS and Vite, the interface provides optimized responsive layouts across mobile field handsets, agricultural scouting tablets, and desktop workstations. Key operational modules include:
+    \begin{itemize}
+        \item \textit{Live Diagnostic Inspector:} Real-time file upload or camera feed analysis displaying calibrated prediction confidence distributions across the 11 classes.
+        \item \textit{Spatial-Frequency \& Attention Explainability:} Interactive visualization of live 24-channel Learnable Gabor filter responses alongside Grad-CAM attention heatmaps, allowing extension officers to verify that predictions are grounded in authentic lesion morphology rather than background clutter.
+        \item \textit{Environmental Robustness Sandbox:} Interactive simulation tool allowing users to apply synthetic optical motion blur, sensor noise, or rain occlusions and observe model confidence retention in real time.
+    \end{itemize}
+\end{enumerate}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/dashboard_interface.png}
+\caption{The LitchiHybridNet interactive decision-support dashboard: (left) live field foliar image upload and multi-class probability estimation, (center) real-time spatial-frequency Gabor filter response inspector, and (right) actionable phytosanitary intervention guidelines.}
+\label{fig:dashboard}
+\end{figure}
+
 \subsection{Threats to Validity and Study Limitations}
 To uphold rigorous scientific integrity, we explicitly detail the following threats to validity and study limitations:
 \begin{enumerate}
